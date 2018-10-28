@@ -4,6 +4,10 @@ import App from './App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios";
+
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
 
 ReactDOM.render(
   <App />,

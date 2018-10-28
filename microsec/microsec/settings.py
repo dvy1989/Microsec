@@ -36,10 +36,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'backend.apps.BackendConfig'
+    'backend.apps.BackendConfig',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth'
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000'
+)
+
+CSRF_COOKIE_NAME = "csrftoken"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -115,9 +122,11 @@ USE_TZ = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    )
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # )
 }
 
 # Static files (CSS, JavaScript, Images)

@@ -1,9 +1,9 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 
 from .models import Sensor
 
 
-class SensorSerializer(HyperlinkedModelSerializer):
+class SensorSerializer(ModelSerializer):
     class Meta:
         model = Sensor
         fields = ('name',)
