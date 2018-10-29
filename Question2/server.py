@@ -1,19 +1,20 @@
 from os.path import join
 from socketserver import ThreadingMixIn, TCPServer, BaseRequestHandler
-from subprocess import run, PIPE
+from subprocess import Popen, PIPE
 
 
 class ThreadedTCPRequestHandler(BaseRequestHandler):
     def handle(self):
-        command = ['./script.sh'] + self.request.recv(1024).decode().split(' ')
-        print(command)
-        process = run(command, stdout=PIPE, cwd=join('..', 'Question1'))
-        # print(process.stdout)   
-        while True:
+        try:
+            command = ['./script.sh'] + self.request.recv(1024).decode().split(' ')
+            print(command)
+            process = Popen(command, stdout=PIPE, stderr=PIPE, cwd=join('..', 'Question1'))
+            # print(process.stdout)
             for line in process.stdout:
                 print(line)
-                self.request.sendall(line.encode())
-
+                self.request.sendall(line)
+        except Exception as e:
+            print(e)
 
 class ThreadedTCPServer(ThreadingMixIn, TCPServer):
     pass

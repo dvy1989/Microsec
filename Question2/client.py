@@ -1,9 +1,11 @@
 from socket import socket, SOCK_STREAM, AF_INET
+import sys
 
 if __name__ == "__main__":
     client = socket(AF_INET, SOCK_STREAM)
     client.connect(("localhost", 2999))
-    message = "https://en.wikipedia.org/wiki/Finland Finland"
+    message = " ".join(sys.argv[1:])
+    print(message)
     try:
         client.sendall(message.encode())
         connected = True
