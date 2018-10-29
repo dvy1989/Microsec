@@ -7,10 +7,12 @@ class ThreadedTCPRequestHandler(BaseRequestHandler):
     def handle(self):
         command = ['./script.sh'] + self.request.recv(1024).decode().split(' ')
         print(command)
-        process = run(command, stdout=PIPE, cwd=join('..', 'Question1'))
-        while True:
+        process = run(command, stdout=PIPE, cwd=join('..','Question1'))
+        # print(process.stdout)   
+	while True:
             for line in process.stdout:
-                self.request.sendall(line)
+                print(line)
+                self.request.sendall(line.encode())
 
 
 class ThreadedTCPServer(ThreadingMixIn, TCPServer):

@@ -6,9 +6,12 @@ if __name__ == "__main__":
     message = "https://en.wikipedia.org/wiki/Finland Finland"
     try:
         client.sendall(message.encode())
-        while True:
+        connected = True
+        while connected:
             response = client.recv(1024)
             if len(response) > 0:
-                print(response)
+               print(response)
+            else:
+               connected = False
     finally:
         client.close()
