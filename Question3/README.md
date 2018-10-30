@@ -72,6 +72,6 @@ npm run start
 
 1. Open frontend at address localhost:3000. You will see authorization window:
 
-![Authorization window](/images/auth.png)
+![Authorization window](images/auth.png)
 
 
