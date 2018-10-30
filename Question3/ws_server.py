@@ -2,6 +2,13 @@ from asyncio import get_event_loop, Queue
 
 from websockets import serve
 
+# This is a web socket broker
+# It has two ports: one for consumers (5001)
+# and one for producers (5000)
+#
+# Producer is a Django application, which generates two types of events, namely, "SENSOR ADDED" and "MEASUREMENT ADDED"
+# Consumer is a React applications which receives these events
+
 MESSAGE_QUEUE = Queue()
 
 

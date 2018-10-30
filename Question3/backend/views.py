@@ -32,6 +32,7 @@ def service_worker(request):
 def add_sensor(request):
     new_sensor = Sensor(name=request.data["name"])
     new_sensor.save()
+    # Send a notification to React
     WEB_SOCKET.send(dumps({'type': 'SENSOR', 'name': new_sensor.name}))
     return Response()
 
@@ -46,10 +47,12 @@ def get_sensors(request):
     json_data = []
     sensors = Sensor.objects.all()
     for sensor in sensors:
+        # There is also latest methiod for such cases
         latest_measures = Measure.objects.filter(sensor=sensor).order_by('-timestamp')[:1]
         if len(latest_measures) > 0:
             value = latest_measures[0].value
         else:
             value = None
+        # "Serialization"
         json_data.append({'name': sensor.name, 'value': value})
     return JsonResponse(json_data, safe=False)

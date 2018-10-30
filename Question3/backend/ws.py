@@ -11,6 +11,11 @@ from .models import Sensor, Measure
 
 
 class WebSocketServer(object):
+    """
+    This is an adapter for socket server
+    It uses implementation of web socket client for Python
+    to collaborate with broker
+    """
     def __init__(self):
         self.connection = create_connection('ws://localhost:5000')
 
@@ -27,10 +32,13 @@ class WebSocketServer(object):
                     value = randint(0, 50) - 15
                     measure = Measure(value=value, timestamp=timestamp, sensor=sensor)
                     measure.save()
-                    self.connection.send(dumps({'type': 'VALUE', 'value': value, 'name': sensor.name}))
+                    self.send(dumps({'type': 'VALUE', 'value': value, 'name': sensor.name}))
                 sleep(5)
             except:
                 pass
+
+    def send(self, message):
+        self.connection.send(message)
 
 
 WEB_SOCKET = WebSocketServer()
