@@ -19,7 +19,7 @@ async def consume(message):
 
 async def producer_handler(websocket, path):
     while True:
-        message = yield from websocket.recv()
+        message = await websocket.recv()
         await consume(message)
 
 
