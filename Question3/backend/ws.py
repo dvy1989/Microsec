@@ -20,7 +20,7 @@ class WebSocketServer(object):
         self.connection = create_connection('ws://localhost:5000')
 
     def start(self):
-        Thread(target=self.feed).start()
+        Thread(target=self.feed, daemon=True).start()
 
     def feed(self):
         while True:
